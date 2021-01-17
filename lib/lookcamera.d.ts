@@ -18,7 +18,6 @@ export declare class LookCamera extends Object3D {
     protected camera: Camera;
     private pitch;
     protected lookDir: Vector3;
-    private posY;
     private sensitivity;
     protected lookDirRight: Vector3;
     private pitchLowLimit;

@@ -35,16 +35,19 @@ export class LookCamera extends Object3D {
   private pitch: Object3D;
   // private yaw: Object3D;
   protected lookDir: Vector3;
-  private posY: number = 0;
-  private sensitivity: number = 0.002;
+  private sensitivity: number;
   protected lookDirRight: Vector3;
-  private pitchLowLimit: number = - 1.5;
-  private pitchHighLimit: number = 1.5;
+  private pitchLowLimit: number;
+  private pitchHighLimit: number;
 
   constructor (options: LookCameraOptions = LookCameraOptionsDefault) {
     super();
 
     this.lookEnabled = true;
+
+    this.sensitivity = options.sensitivity;
+    this.pitchLowLimit = options.pitchLowLimit;
+    this.pitchHighLimit = options.pitchHighLimit;
 
     this.camera = new PerspectiveCamera(
       options.fov,
