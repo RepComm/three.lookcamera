@@ -27,6 +27,8 @@ export declare class LookCamera extends Object3D {
     getLookEnabled(): boolean;
     setLookEnabled(enabled?: boolean): this;
     getCamera(): Camera;
+    hasCamera(): boolean;
     addRotationInput(deltaX: number, deltaY: number): void;
+    clipPitchLimit(): void;
     setRotationInput(x: number, y: number): void;
 }
