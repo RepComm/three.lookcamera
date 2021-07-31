@@ -42,18 +42,18 @@ export class LookCamera extends Object3D {
 
   constructor (options: LookCameraOptions = LookCameraOptionsDefault) {
     super();
-
+    
     this.lookEnabled = true;
 
-    this.sensitivity = options.sensitivity;
-    this.pitchLowLimit = options.pitchLowLimit;
-    this.pitchHighLimit = options.pitchHighLimit;
+    this.sensitivity = options.sensitivity || LookCameraOptionsDefault.sensitivity;
+    this.pitchLowLimit = options.pitchLowLimit || LookCameraOptionsDefault.pitchLowLimit;
+    this.pitchHighLimit = options.pitchHighLimit || LookCameraOptionsDefault.pitchHighLimit;
 
     this.camera = new PerspectiveCamera(
-      options.fov,
-      options.aspect,
-      options.near,
-      options.far
+      options.fov || LookCameraOptionsDefault.fov,
+      options.aspect || LookCameraOptionsDefault.aspect,
+      options.near || LookCameraOptionsDefault.near,
+      options.far || LookCameraOptionsDefault.far
     );
 
     this.pitch = new Object3D();
@@ -81,26 +81,32 @@ export class LookCamera extends Object3D {
   getCamera (): Camera {
     return this.camera;
   }
+  hasCamera(): boolean {
+    return this.camera !== undefined && this.camera !== null;
+  }
   addRotationInput (deltaX: number, deltaY: number) {
+    if (isNaN(deltaX)) throw `deltaX is nan`;
+    if (isNaN(deltaY)) throw `deltaY is nan`;
     if (!this.lookEnabled) return;
     this.rotation.y -= deltaX * this.sensitivity;
     this.pitch.rotation.x -= deltaY * this.sensitivity;
 
-    if (this.pitch.rotation.x < this.pitchLowLimit) {
+    this.clipPitchLimit()
+  }
+  clipPitchLimit () {
+    if (this.pitchLowLimit !== undefined && this.pitch.rotation.x < this.pitchLowLimit) {
       this.pitch.rotation.x = this.pitchLowLimit;
-    } else if (this.pitch.rotation.x > this.pitchHighLimit) {
+    } else if (this.pitchHighLimit !== undefined && this.pitch.rotation.x > this.pitchHighLimit) {
       this.pitch.rotation.x = this.pitchHighLimit;
     }
   }
   setRotationInput (x: number, y: number) {
+    if (isNaN(x)) throw `x is nan`;
+    if (isNaN(y)) throw `y is nan`;
     if (!this.lookEnabled) return;
     this.rotation.y = x * this.sensitivity;
     this.pitch.rotation.x = y * this.sensitivity;
 
-    if (this.pitch.rotation.x < this.pitchLowLimit) {
-      this.pitch.rotation.x = this.pitchLowLimit;
-    } else if (this.pitch.rotation.x > this.pitchHighLimit) {
-      this.pitch.rotation.x = this.pitchHighLimit;
-    }
+    this.clipPitchLimit();
   }
 }

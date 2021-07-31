@@ -1,6 +1,6 @@
 {
   "name": "@repcomm/three.lookcamera",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "bare bones LookCamera and FreeCamera for three.js, js or ts",
   "main": "./lib/mod.js",
   "types": "./lib/mod.d.ts",
@@ -30,12 +30,13 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
     "@babel/plugin-transform-typescript": "^7.10.5",
-    "@babel/preset-env": "^7.10.4"
+    "@babel/preset-env": "^7.10.4",
+    "@types/three": "^0.130.1"
   },
   "scripts": {
     "build": "babel src --extensions '.ts' --copy-files -d lib"
   },
   "dependencies": {
-    "three": "^0.124.0"
+    "three": "^0.131.1"
   }
 }
