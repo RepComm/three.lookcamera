@@ -1,6 +1,6 @@
 {
   "name": "@repcomm/three.lookcamera",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "bare bones LookCamera and FreeCamera for three.js, js or ts",
   "main": "./lib/mod.js",
   "types": "./lib/mod.d.ts",
